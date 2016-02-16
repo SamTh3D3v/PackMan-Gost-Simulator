@@ -25,7 +25,7 @@ namespace PacManGostSimulator
         protected override void LoadContent()
         {            
             _spriteBatch = new SpriteBatch(GraphicsDevice);
-            
+            SetupGrid();
         }
 
         public void SetupGrid()
@@ -51,14 +51,13 @@ namespace PacManGostSimulator
                             {1,0,0,1,1,0,1,0,0,0,0,1,0,0,0,0,1,0,1,1,0,0,1},
                             {1,1,0,0,0,0,0,0,1,1,0,0,0,1,1,0,0,0,0,0,0,1,1},
                             {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
-                        };
-            
+                        };            
 
             _mainGrid =new Grid(gridMatrix,Content.Load<Texture2D>("BlackRect"),Content.Load<Texture2D>("BlueRect"));
         }
 
         protected override void UnloadContent()
-        {            
+        {                       
         }
 
         protected override void Update(GameTime gameTime)
@@ -71,8 +70,8 @@ namespace PacManGostSimulator
         }
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);            
-
+            GraphicsDevice.Clear(Color.White);            
+            _mainGrid.DrawMap(_spriteBatch);
             base.Draw(gameTime);
         }
     }
