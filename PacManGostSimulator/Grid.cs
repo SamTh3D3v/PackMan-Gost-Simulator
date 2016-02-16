@@ -12,27 +12,30 @@ namespace PacManGostSimulator
     {
         public static int Wall = 1;  //later add consder teh corners and the straight line walls 
         public static int Space = 0;
-
         public int[,] GridMap { get; set; }
         public Texture2D BlackRect { get; set; }
         public Texture2D BlueRect { get; set; }
-        public Grid(int[,] gridMap, Texture2D blackRect, Texture2D blueRect)
+        public int RectSize { get; set; }
+        public Vector2 MazeCorner { get; set; }    
+        public Grid(int[,] gridMap, Texture2D blackRect, Texture2D blueRect,int rectSize,Vector2 mazeCorner)
         {
             GridMap = gridMap;
             BlackRect = blackRect;
             BlueRect = blueRect;
+            RectSize = rectSize;
+            MazeCorner= mazeCorner;
         }
 
         public void DrawMap(SpriteBatch spriteBatch)
         {
             spriteBatch.Begin();
-            for (int y = 0; y < 23; y++)
+            for (int y = 0; y < GridMap.GetLength(1); y++)
             {
-                for (int x = 0; x < 19; x++)
+                for (int x = 0; x < GridMap.GetLength(0); x++)
                 {                   
                         spriteBatch.Draw(
-                      (GridMap[x, y] == 1)?BlackRect:BlueRect,
-                      new Rectangle(y * 10, x * 10, 10, 10),
+                      (GridMap[x, y] == Wall) ?BlackRect:BlueRect,
+                      new Rectangle((int) (MazeCorner.X+ y * RectSize), (int) (MazeCorner.Y + x * RectSize), RectSize, RectSize),
                       Color.White);                    
                 }
             }

@@ -25,11 +25,13 @@ namespace PacManGostSimulator
         protected override void LoadContent()
         {            
             _spriteBatch = new SpriteBatch(GraphicsDevice);
+            
             SetupGrid();
         }
 
         public void SetupGrid()
         {
+            
             var gridMatrix = new int[,]
                         {
                             {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
@@ -51,9 +53,11 @@ namespace PacManGostSimulator
                             {1,0,0,1,1,0,1,0,0,0,0,1,0,0,0,0,1,0,1,1,0,0,1},
                             {1,1,0,0,0,0,0,0,1,1,0,0,0,1,1,0,0,0,0,0,0,1,1},
                             {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
-                        };            
+                        };
+            var gridCorner = new Vector2(_graphics.GraphicsDevice.PresentationParameters.BackBufferWidth/2- (gridMatrix.GetLength(1) * 10),
+                _graphics.GraphicsDevice.PresentationParameters.BackBufferHeight / 2 - (gridMatrix.GetLength(0) * 10));
 
-            _mainGrid =new Grid(gridMatrix,Content.Load<Texture2D>("BlackRect"),Content.Load<Texture2D>("BlueRect"));
+            _mainGrid =new Grid(gridMatrix,Content.Load<Texture2D>("BlackRect"),Content.Load<Texture2D>("BlueRect"),20, gridCorner);
         }
 
         protected override void UnloadContent()
